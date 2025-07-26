@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nameplate Stickers for Students</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.3);
+      --primary-color: #007bff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right top, #c9d6ff, #e2e2e2);
+      color: #333;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      margin-top: 10px;
+      width: 100vw;
+      top: 0;
+      left: 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 2rem;
+      transition: background 0.3s;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: var(--primary-color);
+      outline: none;
+    }
+
+    .gallery button,
+    .cta-btn {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+      white-space: nowrap;
+    }
+
+    .cta-btn:hover,
+    .cta-btn:focus {
+      background: #0056b3;
+      outline: none;
+    }
+
+    /* Hamburger menu for mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #000;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* NAV MOBILE ACTIVE */
+    nav.active ul {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    nav.active .hamburger div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    nav.active .hamburger div:nth-child(2) {
+      opacity: 0;
+    }
+
+    nav.active .hamburger div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      background: url('https://source.unsplash.com/featured/?stationery,school') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      padding: 2.5rem;
+      border-radius: 16px;
+      max-width: 700px;
+      color: #000;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      user-select: none;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 4rem 2rem;
+      text-align: center;
+      user-select: none;
+    }
+
+    .section-glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      margin: auto;
+      padding: 2rem;
+      max-width: 1000px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      transition: transform 0.3s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      user-select: none;
+    }
+
+    .gallery img:hover,
+    .gallery img:focus {
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* TESTIMONIALS */
+    .testimonial-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding: 0 1rem;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 1.25rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+      text-align: left;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+
+    .testimonial-card:hover,
+    .testimonial-card:focus {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      outline: none;
+    }
+
+    /* ORDER BUTTON */
+    section#order .cta-btn {
+      font-size: 1.1rem;
+      padding: 0.75rem 1.8rem;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 1rem;
+      text-align: center;
+      background: #f0f0f0;
+      color: #666;
+      user-select: none;
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE ADJUSTMENTS */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero {
+        padding: 1.5rem 1rem;
+      }
+
+      .hero .glass {
+        padding: 2rem 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 3rem 1rem;
+      }
+
+      .section-glass {
+        padding: 1.5rem 1rem;
+        margin: 1rem;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .testimonial-list {
+        grid-template-columns: 1fr;
+        padding: 0 0.5rem;
+      }
+
+      .testimonial-card {
+        font-size: 0.95rem;
+        padding: 1rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 0.9rem;
+      }
+
+      .cta-btn {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+      }
+    }
+
+    .gallery button {
+      outline: none;
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="logo" tabindex="0">📘 Raj Stickers</div>
+    <ul>
+      <li><a href="#showcase">Gallery</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#order">Order</a></li>
+    </ul>
+    <a href="#gallery" class="cta-btn">Order Now</a>
+    <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="glass" data-aos="fade-up">
+      <h1>Create Name Stickers with Selfies</h1>
+      <p>Personalized stickers for students with their photo, name, class & school. Delivered fast, printed beautifully!
+      </p>
+      <a href="#gallery" class="cta-btn" style="margin-top: 1.5rem; display: inline-block;">Start Order</a>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section id="showcase" data-aos="fade-right">
+    <h2>Choose a sticker type for your selfie.</h2>
+    <div class="section-glass">
+      <p>Check out samples of our unique sticker designs. Each one made with love and precision for every student.</p>
+      <div class="gallery" id="gallery">
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section id="testimonials" data-aos="fade-left">
+    <h2>What Parents Say</h2>
+    <div class="section-glass">
+      <blockquote>“Absolutely love these! My son’s books are now labeled with his selfie and name. Super cute and
+        helpful.”
+        <br>— Meena R., Mumbai
+      </blockquote>
+
+      <div class="testimonial-list" data-aos="fade-up">
+        <div class="testimonial-card">
+          “Amazing quality! My daughter was so happy seeing her face on the sticker. Will definitely reorder.”
+          <br><strong>– Arjun S., Bengaluru</strong>
+        </div>
+        <div class="testimonial-card">
+          “Delivered on time, great colors and finish. The ordering process was simple and smooth.”
+          <br><strong>– Neha K., Nagpur</strong>
+        </div>
+        <div class="testimonial-card">
+          “The stickers are adorable. My son keeps showing them off to his classmates!”
+          <br><strong>– Reema V., Delhi</strong>
+        </div>
+        <div class="testimonial-card">
+          “I wasn’t sure at first, but these stickers turned out great. Very professional packaging too.”
+          <br><strong>– Sandeep R., Chennai</strong>
+        </div>
+        <div class="testimonial-card">
+          “As a teacher, I recommend this to every parent. Kids love them and it keeps books safe.”
+          <br><strong>– Mrs. Joshi, Pune</strong>
+        </div>
+        <div class="testimonial-card">
+          “Loved the selfie idea. My daughter smiled the whole day after seeing them on her books.”
+          <br><strong>– Tanvi M., Jaipur</strong>
+        </div>
+        <div class="testimonial-card">
+          “Perfectly printed, and the glossy finish made them look premium. 10/10.”
+          <br><strong>– Nikhil D., Lucknow</strong>
+        </div>
+        <div class="testimonial-card">
+          “Easy to stick, waterproof, and long-lasting. My kid’s name stays put all year!”
+          <br><strong>– Ritu P., Hyderabad</strong>
+        </div>
+        <div class="testimonial-card">
+          “Good communication and fast support. The customer service was really helpful.”
+          <br><strong>– Harsh A., Indore</strong>
+        </div>
+        <div class="testimonial-card">
+          “Ordered 5 sets for my niece and nephew. Everyone in the family loved them.”
+          <br><strong>– Priyansh T., Surat</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER SECTION -->
+  <section id="order" data-aos="fade-up">
+    <h2>Place Your Order</h2>
+    <div class="section-glass" style="max-width: 600px; margin: 1rem auto; text-align: left;">
+      <form id="orderForm" enctype="multipart/form-data" autocomplete="off">
+        <label for="name">Full Name</label><br />
+        <input type="text" id="name" name="name" required placeholder="Your full name"
+          style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: 6px; border: 1px solid #ccc;" />
+
+        <label for="phone">Phone Number</label><br />
+        <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210"
+          style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: 6px; border: 1px solid #ccc;" />
+
+        <label>Design type : <p id="design-type"></p></label><br />
+
+        <label for="selfie">Upload Selfie or Photo</label><br />
+        <input type="file" id="selfie" name="selfie" accept="image/*" required style="margin-bottom: 1rem;" />
+        <br>
+        <label for="quantity">Quantity (Number of Nameplates)</label><br />
+        <p>Each 9 pieces cost 30 rupees. But if you order more than 45 pieces it will cost only 26 rupees per 9 pieces.
+        </p>
+        <select id="quantity" name="quantity" required onchange="showSelectedValue(this)"
+          style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: 6px; border: 1px solid #ccc;">
+          <option value="" disabled selected>Select the quantity</option>
+          <option value="9">9</option>
+          <option value="18">18</option>
+          <option value="27">27</option>
+          <option value="36">36</option>
+          <option value="45">45</option>
+          <option value="54">54</option>
+          <option value="63">63</option>
+          <option value="72">72</option>
+          <option value="81">81</option>
+          <option value="90">90</option>
+          <option value="99">99</option>
+          <option value="108">108</option>
+          <option value="117">117</option>
+          <option value="126">126</option>
+          <option value="135">135</option>
+          <option value="144">144</option>
+          <option value="153">153</option>
+          <option value="162">162</option>
+          <option value="171">171</option>
+          <option value="180">180</option>
+          <option value="189">189</option>
+          <option value="198">198</option>
+          <option value="207">207</option>
+          <option value="216">216</option>
+          <option value="225">225</option>
+        </select>
+
+        <!-- <label for="payment">Payment Option</label><br />
+        <select id="payment" name="payment" required
+          style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: 6px; border: 1px solid #ccc;">
+          <option value="full">Pay Full Amount</option>
+          <option value="half">Pay Half Amount for Now</option>
+        </select> -->
+
+        <p id="total-cost"></p>
+        <button type="submit" class="cta-btn" style="width: 100%; margin-top: 1rem;">Confirm Order & Pay</button>
+      </form>
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">* You will be redirected to secure payment after form
+        submission.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Nameplate Stickers. All rights reserved. | Designed with ❤️ in India
+  </footer>
+
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: 'ease-in-out',
+    });
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navbar = document.getElementById('navbar');
+    hamburger.addEventListener('click', () => {
+      navbar.classList.toggle('active');
+    });
+    hamburger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        navbar.classList.toggle('active');
+      }
+    });
+
+    const chooseDesign = (event) => {
+      // const container = element.closest('.imgBoxes'); // Find the parent div
+      // const pTag = container.querySelector('p');     // Find the <p> inside
+      // const text = pTag.textContent;                 // e.g., "img id : 202512"
+
+      // // Extract the ID using split or regex
+      // const imgId = text.split(':')[1].trim(); // result: "202512"
+
+      // console.log("Selected Image ID:", imgId);
+
+      // console.log(event.target.id);
+
+      document.getElementById("design-type").innerText = event.target.id;
+      location.href = "#order"
+    }
+
+    function showSelectedValue(selectElement) {
+      const selectedValue = parseInt(selectElement.value);
+      // console.log("Selected value:", selectedValue);
+      // console.log(typeof(parseInt(selectedValue)))
+      if(selectedValue > 45){
+        document.querySelector("#total-cost").innerText = "Total cost = " + ((selectedValue/9)) * 26;
+      }
+      if(selectedValue <= 45){
+        document.querySelector("#total-cost").innerText = "Total cost = " + ((selectedValue/9)) * 30;
+      }
+    }
+
+    // Example order form submit (replace with your backend logic)
+    document.getElementById('orderForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Order received! Proceeding to payment gateway...');
+      // TODO: Implement actual payment integration here
+      this.reset();
+    });
+
+    for (let i = 16; i > 0; i--) {
+      document.getElementsByClassName("gallery")[0].innerHTML += `<div class="imgBoxes">
+          <img src="assets/${i}.png" alt="Sample ${i}"/>
+          <p>img id : 2025${i}</p>   
+          <button id="2025${i}" onclick="chooseDesign(event)">choose it</button>       
+        </div>
+        `
+    }
+  </script>
+</body>
+
+</html>
